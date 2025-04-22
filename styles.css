@@ -64,6 +64,7 @@ img{
 .button:hover{
   cursor: pointer;
   filter: brightness(1.2) opacity(0.8);
+  transition: all 0.5s;
 }
 
 .list{
@@ -147,6 +148,11 @@ a{
 .container-comment .text{
   max-width: 38.625rem;
   margin: 1rem 0;
+}
+
+.messTo{
+  color: #5357B6;
+  font-weight: 700;
 }
 
 .container-upvote{

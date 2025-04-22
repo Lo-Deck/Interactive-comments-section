@@ -50,6 +50,7 @@ function sortComment(){
 
 
     document.querySelectorAll('.reply').forEach( (replyElement) => {
+
         const sortArraySubComment = [];
         const containerComments = replyElement.querySelectorAll('.container-comment');
     
@@ -64,6 +65,7 @@ function sortComment(){
         for(let i = sortArraySubComment.length-1; i >= 0; i--){
             replyElement.insertAdjacentElement("afterbegin", sortArraySubComment[i]);
         }
+
     });
     
 
@@ -74,20 +76,12 @@ let currentUser = {};
 
 const saveCommentStorage = 'saveComment';
 
-
 function saveComment() {
     
     let objSaveComment = {};
-
     objSaveComment.comments = []; 
 
-
-    console.log(objSaveComment.comments);
-
-
     const mainComment = document.querySelectorAll('.container-comment-and-reply');
-
-    // console.log(mainComment);
 
     mainComment.forEach((item, index) => {
 
@@ -135,27 +129,12 @@ function saveComment() {
         });
 
     const saveJSONStorage = JSON.stringify(objSaveComment.comments);
-    // const saveCommentStorage = 'saveComment';
-    
-    console.log(saveJSONStorage);
-
     sessionStorage.setItem(saveCommentStorage, saveJSONStorage);
-
-    // const dataStorage = sessionStorage.getItem(saveCommentStorage);
-    // const dataStorageArray = JSON.parse(dataStorage);
 
 }
 
 
-
-
 function loadComment(array){
-
-    // const array = data;
-
-    // currentUser.name = data.currentUser.username;
-    // console.log(currentUser.name)
-
 
     for(let i = 0; i < array.length; i++){
 
@@ -257,14 +236,9 @@ function loadComment(array){
 
 
 
-
-
-
-
-
 const main = document.querySelector('.main-container');
 
-// let currentUser = {};
+// // let currentUser = {};
 
 // window.addEventListener('load', () => {
 
@@ -272,30 +246,21 @@ const main = document.querySelector('.main-container');
 
 //       sessionStorage.removeItem('isRefreshing'); // Clear the flag
 //     //   console.log("Page was refreshed");
-
 //       const user = sessionStorage.getItem(saveUser);
 //     //   console.log(user);
 //       currentUser.name = user;
-
 //       const dataStorage = sessionStorage.getItem(saveCommentStorage);
 //     //   console.log(dataStorage);
-
 //       const dataStorageArray = JSON.parse(dataStorage);
 //       console.log(dataStorageArray);
-
 //       loadComment(dataStorageArray);
 
 //       sessionStorage.clear();
 
 //     } 
-    
 //     else {
 
-
-
-
 //       console.log("Page was loaded normally");
-
 
 
 // if(sessionStorage.getItem('isRefreshing') !== 'true'){
@@ -303,14 +268,8 @@ const main = document.querySelector('.main-container');
 
 fetchData().then( (data) => {
 
-        // const array = data;
-
         currentUser.name = data.currentUser.username;
-        // console.log(currentUser.name);
-
-        // loadComment(data);
-
-
+ 
         for(let i = 0; i < data.comments.length; i++){
 
             const containerCommentAndReply = document.createElement('div');
@@ -373,7 +332,7 @@ fetchData().then( (data) => {
                                 ${ data.currentUser.username === data.comments[i].replies[j].user.username ? `<span class="ifUser text-rubik-medium">you</span>` : `` }
                                 <span class="posted-time text-rubik-regular">${data.comments[i].replies[j].createdAt}</span>
                             </h2>
-                            <p class="text text-rubik-regular">${data.comments[i].replies[j].content}</p>
+                            <p class="text text-rubik-regular"><span class="messTo">@${data.comments[i].user.username}</span> ${data.comments[i].replies[j].content}</p>
                             <div class="container-reply">
                                 <div class="container-upvote">
                                     <button class="button button-upvote button-plus"><svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
@@ -405,7 +364,6 @@ fetchData().then( (data) => {
             }
 
         }
-
 
 
         document.querySelector('#myForm').addEventListener('submit', (event) => {
@@ -472,59 +430,6 @@ fetchData().then( (data) => {
 
 
 
-// document.querySelector('#myForm').addEventListener('submit', (event) => {
-
-//     if( document.querySelector('#myForm')[0].textLength !== 0 ){
-
-//         const containerCommentAndReply = document.createElement('div');
-//         containerCommentAndReply.classList.add('container-comment-and-reply');
-//         const section = document.createElement('section');
-//         section.classList.add('container-comment');
-
-//         section.innerHTML = `
-        
-//             <h2 class="title-comment">
-//                 <picture class="container-image-avatar">
-//                     <source scrset="${data.currentUser.image.webp}" type="image/webp">
-//                     <img class="image-avatar" src="${data.currentUser.image.png}" alt="amyrobson">
-//                 </picture>
-//                 <span class="user text-rubik-medium">${data.currentUser.username}</span>
-//                 <span class="ifUser text-rubik-medium">you</span>
-//                 <span class="posted-time text-rubik-regular">0 min</span>
-//             </h2>
-//             <p class="text text-rubik-regular">${document.querySelector('#myForm')[0].value}</p>
-//             <div class="container-reply">
-//                 <div class="container-upvote">
-//                     <button class="button button-upvote button-plus"><svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
-//                         <path d="M6.33 10.896c.137 0 .255-.05.354-.149.1-.1.149-.217.149-.354V7.004h3.315c.136 0 .254-.05.354-.149.099-.1.148-.217.148-.354V5.272a.483.483 0 0 0-.148-.354.483.483 0 0 0-.354-.149H6.833V1.4a.483.483 0 0 0-.149-.354.483.483 0 0 0-.354-.149H4.915a.483.483 0 0 0-.354.149c-.1.1-.149.217-.149.354v3.37H1.08a.483.483 0 0 0-.354.15c-.1.099-.149.217-.149.353v1.23c0 .136.05.254.149.353.1.1.217.149.354.149h3.333v3.39c0 .136.05.254.15.353.098.1.216.149.353.149H6.33Z"/>
-//                     </svg></button>
-//                     <span class="numberOfVote text-rubik-medium">0</span>
-//                     <button class="button button-upvote button-minus" disabled><svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">
-//                         <path d="M9.256 2.66c.204 0 .38-.056.53-.167.148-.11.222-.243.222-.396V.722c0-.152-.074-.284-.223-.395a.859.859 0 0 0-.53-.167H.76a.859.859 0 0 0-.53.167C.083.437.009.57.009.722v1.375c0 .153.074.285.223.396a.859.859 0 0 0 .53.167h8.495Z" />
-//                     </svg></button>
-//                 </div>
-
-//                 <div class="container-edit-message">
-//                     <button class="button button-delete text-rubik-medium"><img src="./images/icon-delete.svg" alt="delete">Delete</button>
-//                     <button class="button button-edit text-rubik-medium"><img src="./images/icon-edit.svg" alt="edit">Edit</button>
-//                 </div>
-
-//             </div>
-        
-//         `;
- 
-//         containerCommentAndReply.insertAdjacentElement('afterbegin', section);
-//         document.querySelector('.add-comment').insertAdjacentElement('beforebegin', containerCommentAndReply);
-
-//     }
-
-//     event.preventDefault();
-
-// });
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const mainContainer = document.querySelector('.main-container');
@@ -557,11 +462,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
+
         if(event.target.closest('.button-reply')){
 
             if(!event.target.closest('.main-container').querySelector('.reply-mess')){//if you click twice on edit dont open a new box, close it
 
                 const nameReply = event.target.closest('.container-comment').querySelector('.title-comment .user').innerText;
+
                 const reply = document.createElement('div');
                 reply.classList.add('reply-mess');
 
@@ -590,7 +497,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             event.target.closest('.add-comment').addEventListener('submit', (event) => {
 
-                const comment = event.target.closest('.add-comment').querySelector('textarea').value;
+
+                let comment = event.target.closest('.add-comment').querySelector('textarea').value;
+
+                comment = comment.split(' ');
+                comment.shift();
+                comment = comment.join(' ');
 
                 if(comment !== ''){
 
@@ -607,7 +519,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     const sectionReply = document.createElement('section');
-                    sectionReply.classList.add('container-comment');                    
+                    sectionReply.classList.add('container-comment');          
+                               
 
                     sectionReply.innerHTML = `
                         <h2 class="title-comment">
@@ -619,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="ifUser text-rubik-medium">you</span>
                             <span class="posted-time text-rubik-regular">0 minutes</span>
                         </h2>
-                        <p class="text text-rubik-regular">${comment}</p>
+                        <p class="text text-rubik-regular"><span class="messTo">@${event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText}</span> ${comment}</p> 
                         <div class="container-reply">
                             <div class="container-upvote">
                                 <button class="button button-upvote button-plus"><svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
@@ -688,11 +601,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if(event.target.closest('.button-update')){
+
             event.target.closest('.container-comment').querySelector('.button-edit').disabled = false;
-            event.target.closest('.container-comment').querySelector('.text').textContent = event.target.closest('.container-comment').querySelector('textarea').value;
+
+            if( event.target.closest('.container-comment-and-reply').querySelector('.reply') ){
+
+                let updateComment = event.target.closest('.container-comment').querySelector('textarea').value;
+                console.log(updateComment);
+                updateComment = updateComment.split(' ');
+                updateComment.shift();
+                updateComment = updateComment.join(' ');
+                console.log(updateComment);
+                event.target.closest('.container-comment').querySelector('.text').innerHTML = ` <span class="messTo">@${event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText}</span> ${updateComment}`;
+
+            }
+            else{
+
+                event.target.closest('.container-comment').querySelector('.text').textContent = event.target.closest('.container-comment').querySelector('textarea').value;   
+
+            }
+
             event.target.closest('.container-comment').querySelector('.text').style.display = 'block';
             event.target.closest('.container-comment').querySelector('textarea').remove();
             event.target.closest('.container-comment').querySelector('.button-update').remove();
+
         }
 
     });
@@ -742,7 +674,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //       console.log(dataStorageArray);
 
 //       loadComment(dataStorageArray);
-
 
 //     //   sessionStorage.clear();
 
