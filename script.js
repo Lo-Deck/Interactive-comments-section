@@ -437,30 +437,25 @@ document.addEventListener('DOMContentLoaded', () => {
     mainContainer.addEventListener('click', (event) => {
 
         if(event.target.closest('.button-plus')){
-
-            console.log('plus');
+            // console.log('plus');
             let score = Number(event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent);
             score++;
             event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent = score;
             event.target.closest('.button-plus').disabled = true;
             event.target.closest('.container-upvote').querySelector('.button-minus').disabled = false;
             sortComment();
-
         }
 
 
         if(event.target.closest('.button-minus')){
-
-            console.log('minus');
+            // console.log('minus');
             let score = Number(event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent);
             score--;
             event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent = score;
             event.target.closest('.button-minus').disabled = true;
             event.target.closest('.container-upvote').querySelector('.button-plus').disabled = false;
             sortComment();
-
         }
-
 
 
         if(event.target.closest('.button-reply')){
@@ -501,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let comment = event.target.closest('.add-comment').querySelector('textarea').value;
 
                 comment = comment.split(' ');
-                comment.shift();
+                const userResponse = comment.shift();
                 comment = comment.join(' ');
 
                 if(comment !== ''){
@@ -519,8 +514,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     const sectionReply = document.createElement('section');
-                    sectionReply.classList.add('container-comment');          
-                               
+                    sectionReply.classList.add('container-comment');     
+                    
+
+                    // const userResponse = event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText;
+    
 
                     sectionReply.innerHTML = `
                         <h2 class="title-comment">
@@ -532,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="ifUser text-rubik-medium">you</span>
                             <span class="posted-time text-rubik-regular">0 minutes</span>
                         </h2>
-                        <p class="text text-rubik-regular"><span class="messTo">@${event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText}</span> ${comment}</p> 
+                        <p class="text text-rubik-regular"><span class="messTo">${userResponse}</span> ${comment}</p>
                         <div class="container-reply">
                             <div class="container-upvote">
                                 <button class="button button-upvote button-plus"><svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
