@@ -1,0 +1,444 @@
+
+:root{
+
+  /* @link https://utopia.fyi/clamp/calculator?a=768,1440,16—48 */
+
+  --width-conpx: 45.625rem;
+
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  min-width: 17.5rem;
+  min-height: 100vh;
+  padding: clamp(0rem, 3.9474rem + -16.8421vw, 1rem);
+  background: #F5F6FA;
+}
+
+
+/**TEXT**/
+
+.text-rubik-regular{
+  font-family: "Rubik", sans-serif;
+  font-size: 1rem;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #67727E;
+  line-height: 1.5;
+}
+
+.text-rubik-medium{
+  font-family: "Rubik", sans-serif;
+  font-size: 1rem;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.text-rubik-bold{
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/****/
+
+
+img{
+  display: block;
+}
+
+.button{
+  display: block;  
+  background: transparent;
+  border-style: none;
+}
+
+.button:hover{
+  cursor: pointer;
+  filter: brightness(1.2) opacity(0.8);
+}
+
+.list{
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.sr-only{
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.background{
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.5);
+  position: fixed;
+    top: 0; left: 0;
+  z-index: 10;
+}
+
+
+/*MAIN*/
+
+.main-container{
+  max-width: 45.625rem;
+  text-align: left;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.reply{
+  padding-left: 1rem;
+  border-left: 0.0625rem solid hsla(211, 10%, 45%, 0.4);
+}
+
+.container-comment{
+  width: 100%;
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem 1rem 0.9375rem;
+  margin-bottom: 1rem;
+}
+
+.title-comment{
+  display: flex;
+  align-items: center;
+}
+
+.container-image-avatar{
+  margin-right: 1rem;
+}
+
+.image-avatar{
+  width: 2rem;
+  height: 2rem;
+}
+
+.ifUser{
+  background: #5357B6;
+  color: #fff;
+  border-radius: 0.2rem;
+  font-size: 0.8125rem;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.3rem 0.2rem;
+}
+
+.posted-time{
+  margin-left: 1rem;
+}
+
+.container-comment .text{
+  max-width: 38.625rem;
+  margin: 1rem 0;
+}
+
+.container-upvote{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 6.25rem;
+  height: 2.5rem;
+  background: #F5F6FA;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.container-reply{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-upvote svg{
+  fill: #C5C6EF;
+}
+
+.button-upvote:hover svg{
+  fill: #5357B6;
+}
+
+.numberOfVote{ 
+  color: #5357B6;
+}
+
+.button-minus{
+  position: relative;
+    top: -0.2rem;
+}
+
+.button-reply span{
+  margin-left: 0.5rem;
+  color: #5357B6;
+}
+
+.container-edit-message{
+  display: flex;
+}
+
+.button-delete{
+  margin-right: 1rem;
+  color: #ED6368;
+}
+
+.container-edit-message .button img{
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.button-edit{
+  color: #5357B6;
+}
+
+
+/*COMMENT*/
+
+.add-comment{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, min-content);
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem 0.8rem 1rem 0.9375rem;
+  margin-bottom: 1rem;
+}
+
+textarea{
+  display: block;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  padding-top: 0.5rem;
+  width: 100%;
+  height: 6rem;
+  resize: none;
+  text-indent: 1.5rem;
+  border: 0.0625rem solid hsla(211, 10%, 45%, 0.4);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+textarea:focus {
+  outline: 0.0625rem solid #5357B6;
+}
+
+textarea:hover {
+  cursor: pointer;
+  outline: 0.0625rem solid #5357B6;
+}
+
+.add-comment .container-image-avatar{
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.button-submit{
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  width: 6.5rem;
+  height: 3rem;
+  background: #5357B6;
+  color: #fff;
+  border-radius: 0.35rem;
+  text-transform: uppercase;
+}
+
+
+/*DELETE-BOX*/
+
+.delete-box{
+  display: none;
+  max-width: 21.4375rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: calc(50% - 7rem); left: calc(50% - 10.7rem);
+  z-index: 20;
+}
+
+.title-delete{
+  font-size: 1.25rem;
+}
+
+.delete-box .text{
+  margin: 1rem 0;
+} 
+
+.container-button-delete{
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-delete-box{
+  width: 8.625rem;
+  height: 3rem;
+  border-radius: 0.35rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.button-cancel{
+  background: #67727E;
+}
+
+.button-confirm{
+  background: #ED6368;
+}
+
+
+@media screen and (min-width: 45rem){
+
+
+/*MAIN*/
+
+  .main-container{
+    padding: 0;
+  }
+
+  .reply{
+    padding-left: 2.75rem;
+    margin-left: 2.75rem;
+  }
+
+  .container-comment{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(min-content, max-content));
+    grid-template-rows: repeat(2, min-content);
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    position: relative;
+  }
+
+  .title-comment{
+    grid-column: 2;
+    grid-row: 1;
+    height: 2rem;
+  }
+
+  .container-comment .text{
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin: 1rem 0 0;
+  }
+
+  .reply .container-comment .edit-textarea{
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin: 1rem 0 0;
+    padding: 0.1rem 0.2rem;
+    width: 33rem;
+  }
+
+  .container-comment .edit-textarea{
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin: 1rem 0 0;
+    padding: 0.1rem 0.2rem;
+    width: 38rem;
+  }
+
+  .container-comment .button-submit{
+    grid-column: 3;
+    grid-row: 3;
+    margin-top: 1rem;
+  }
+
+  .container-upvote{
+    flex-direction: column;
+    width: 2.5rem;
+    height: 6.25rem;
+    padding: 0.75rem 0.5rem; 
+  }
+
+  .container-reply{
+    grid-column: 1;
+    grid-row: 1 / -1;
+    display: block;
+    margin-right: 1.5rem;
+  }
+
+  .button-reply{
+    position: absolute;
+      top: 1.8rem; right: 1.5rem;
+  }
+
+  .container-edit-message{
+    position: absolute;
+      top: 1.8rem; right: 1.5rem;
+  }
+
+
+  /*COMMENT*/
+
+  .add-comment{
+    display: grid;
+    grid-template-columns: 0.5fr 4fr 1fr;
+    grid-template-rows: 1fr;
+    justify-content: space-between;
+    align-items: start;
+    padding: 1.5rem;
+  }
+
+  textarea{
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .add-comment .container-image-avatar{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .add-comment .container-image-avatar .image-avatar{
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .button-submit{
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: 1rem;
+  }
+
+
+  /*DELETE-BOX*/
+
+  .delete-box{
+    max-width: 25rem;
+    padding: 2rem;
+    position: absolute;
+      top: calc(50% - 8rem); left: calc(50% - 12.5rem);
+  }
+
+  .title-delete{
+    font-size: 1.5rem;
+  }
+
+  .delete-box .text{
+    margin: 1.25rem 0;
+  } 
+
+  .button-delete-box{
+    width: 10rem;
+  }
+
+}
