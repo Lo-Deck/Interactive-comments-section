@@ -81,6 +81,10 @@ function saveComment() {
 
     objSaveComment.comments = []; 
 
+
+    console.log(objSaveComment.comments);
+
+
     const mainComment = document.querySelectorAll('.container-comment-and-reply');
 
     // console.log(mainComment);
@@ -294,7 +298,7 @@ const main = document.querySelector('.main-container');
 
 
 
-if(sessionStorage.getItem('isRefreshing') !== 'true'){
+// if(sessionStorage.getItem('isRefreshing') !== 'true'){
 
 
 fetchData().then( (data) => {
@@ -460,7 +464,7 @@ fetchData().then( (data) => {
     
 )
 
-}
+// }
 
 // }//add
 
@@ -699,55 +703,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-const saveUser = 'userKey'; 
+// const saveUser = 'userKey'; 
 
 
-window.addEventListener('beforeunload', () => {
+// window.addEventListener('beforeunload', () => {
 
-    sessionStorage.setItem('isRefreshing', 'true');
+//     sessionStorage.setItem('isRefreshing', 'true');
 
-    console.log('before unload');
+//     console.log('before unload');
 
-    const userStorage = currentUser.name;
-    // console.log(currentUser.name);
+//     const userStorage = currentUser.name;
+//     // console.log(currentUser.name);
 
-    sessionStorage.setItem(saveUser, userStorage);
+//     sessionStorage.setItem(saveUser, userStorage);
 
-    saveComment();
+//     saveComment();
 
-});
-
-
-
-window.addEventListener('load', () => {
-
-    if(sessionStorage.getItem('isRefreshing') === 'true') {
-
-      sessionStorage.removeItem('isRefreshing'); // Clear the flag
-    //   console.log("Page was refreshed");
-
-      const user = sessionStorage.getItem(saveUser);
-    //   console.log(user);
-
-      currentUser.name = user;
-
-      const dataStorage = sessionStorage.getItem(saveCommentStorage);
-    //   console.log(dataStorage);
-
-      const dataStorageArray = JSON.parse(dataStorage);
-      console.log(dataStorageArray);
-
-      loadComment(dataStorageArray);
+// });
 
 
-    //   sessionStorage.clear();
 
-    } 
+// window.addEventListener('load', () => {
+
+//     if(sessionStorage.getItem('isRefreshing') === 'true') {
+
+//       sessionStorage.removeItem('isRefreshing'); // Clear the flag
+//     //   console.log("Page was refreshed");
+
+//       const user = sessionStorage.getItem(saveUser);
+//     //   console.log(user);
+
+//       currentUser.name = user;
+
+//       const dataStorage = sessionStorage.getItem(saveCommentStorage);
+//     //   console.log(dataStorage);
+
+//       const dataStorageArray = JSON.parse(dataStorage);
+//       console.log(dataStorageArray);
+
+//       loadComment(dataStorageArray);
+
+
+//     //   sessionStorage.clear();
+
+//     } 
     
-    else {
+//     else {
 
-      console.log("Page was loaded normally");
+//       console.log("Page was loaded normally");
 
-    }
+//     }
 
-});
+// });
