@@ -148,6 +148,7 @@ a{
 .container-comment .text{
   max-width: 38.625rem;
   margin: 1rem 0;
+  word-break: break-all;
 }
 
 .messTo{

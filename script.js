@@ -68,7 +68,6 @@ function sortComment(){
 
     });
     
-
 }
 
 
@@ -368,7 +367,11 @@ fetchData().then( (data) => {
 
         document.querySelector('#myForm').addEventListener('submit', (event) => {
 
-            if( document.querySelector('#myForm')[0].textLength !== 0 ){
+            const mess = document.querySelector('#myForm')[0].value.trim();
+            console.log(document.querySelector('#myForm')[0]);
+
+            // if( document.querySelector('#myForm')[0].textLength !== 0 ){
+            if(mess){
 
                 const containerCommentAndReply = document.createElement('div');
                 containerCommentAndReply.classList.add('container-comment-and-reply');
@@ -386,7 +389,7 @@ fetchData().then( (data) => {
                         <span class="ifUser text-rubik-medium">you</span>
                         <span class="posted-time text-rubik-regular">0 min</span>
                     </h2>
-                    <p class="text text-rubik-regular">${document.querySelector('#myForm')[0].value}</p>
+                    <p class="text text-rubik-regular">${mess}</p>
                     <div class="container-reply">
                         <div class="container-upvote">
                             <button class="button button-upvote button-plus"><svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
@@ -414,6 +417,10 @@ fetchData().then( (data) => {
  
             }
 
+            else{
+                document.querySelector('#myForm')[0].value = '';
+            }
+
             event.preventDefault();
 
         });
@@ -439,7 +446,6 @@ document.addEventListener('DOMContentLoaded', () => {
     mainContainer.addEventListener('click', (event) => {
 
         if(event.target.closest('.button-plus')){
-            // console.log('plus');
             let score = Number(event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent);
             score++;
             event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent = score;
@@ -450,7 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         if(event.target.closest('.button-minus')){
-            // console.log('minus');
             let score = Number(event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent);
             score--;
             event.target.closest('.container-upvote').querySelector('.numberOfVote').textContent = score;
@@ -462,16 +467,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(event.target.closest('.button-reply')){
 
+            let lengthName = 0;
+
             if(!event.target.closest('.main-container').querySelector('.reply-mess')){//if you click twice on edit dont open a new box, close it
 
                 const nameReply = event.target.closest('.container-comment').querySelector('.title-comment .user').innerText;
+                lengthName = event.target.closest('.container-comment').querySelector('.title-comment .user').innerText.length+2;
 
                 const reply = document.createElement('div');
                 reply.classList.add('reply-mess');
 
                 reply.innerHTML = `
                     <form class="add-comment" id="" action="./index.html" novalidate>
-                        <textarea class="text-rubik-regular" name="comment" id="comment-user" placeholder="Add a comment..." required>@${nameReply}</textarea>
+                        <textarea class="text-rubik-regular" name="comment" id="comment-user" placeholder="Add a comment..." required>@${nameReply} </textarea>
                         <picture class="container-image-avatar">
                             <source scrset="./images/avatars/image-juliusomo.webp" type="image/webp">
                             <img class="image-avatar" src="./images/avatars/image-juliusomo.png" alt="amyrobson">
@@ -488,14 +496,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.target.closest('.container-comment').nextElementSibling.remove();
             }
 
+
+
+            if(document.querySelector('.reply-mess')){
+
+                document.querySelector('.reply-mess textarea').addEventListener('keydown', (event) => {
+
+                    console.log('lengthName', lengthName);
+                    console.log('event.target.selectionStart', event.target.selectionStart);
+                  
+                    if (event.target.selectionStart < lengthName) {
+                      console.log('hure');
+                      event.preventDefault();
+                      event.target.setSelectionRange(lengthName, lengthName); 
+                    }
+
+
+                    if(event.key === 'Backspace' && event.target.selectionStart <= lengthName){
+                        console.log('back');
+                        event.preventDefault();
+                        event.target.setSelectionRange(lengthName, lengthName);
+                    }
+                  
+                });
+            
+            }
+
         }
+
 
         if(event.target.closest('.button-submit-reply')){
 
             event.target.closest('.add-comment').addEventListener('submit', (event) => {
 
-
                 let comment = event.target.closest('.add-comment').querySelector('textarea').value;
+
+                comment = comment.trim();
 
                 comment = comment.split(' ');
                 const userResponse = comment.shift();
@@ -517,8 +553,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const sectionReply = document.createElement('section');
                     sectionReply.classList.add('container-comment');     
-                    
-                    // const userResponse = event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText;
     
                     sectionReply.innerHTML = `
                         <h2 class="title-comment">
@@ -572,17 +606,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelector('.background').style.display = 'none';
             });
 
+
             document.querySelector('.delete-box .button-confirm').addEventListener('click', () => {
 
-                if(event.target.closest('.container-comment-and-reply').querySelector('.reply')){
+                const elementToDelete = event.target.closest('.container-comment');
+                const elementParent = elementToDelete.parentElement;
 
-                    event.target.closest('.container-comment').remove(); 
-                }
+                if (elementParent && elementParent.classList.contains('reply')) {
 
-                else if(event.target.closest('.container-comment-and-reply')){
-                    event.target.closest('.container-comment-and-reply').remove();     
-                }
-                    
+                    elementToDelete.remove();
+
+                    if(!elementParent.children.length){
+                        elementParent.remove();
+                    }
+
+                } else if (elementParent) {
+                    elementParent.remove();
+                } 
+                
                 document.querySelector('.delete-box').style.display = 'none';
                 document.querySelector('.background').style.display = 'none';
 
@@ -613,7 +654,6 @@ document.addEventListener('DOMContentLoaded', () => {
             event.target.closest('.container-comment').querySelector('.button-edit').disabled = false;
 
             if( event.target.closest('.container-comment-and-reply').querySelector('.reply') ){
-
                 let updateComment = event.target.closest('.container-comment').querySelector('textarea').value;
                 console.log(updateComment);
                 updateComment = updateComment.split(' ');
@@ -621,12 +661,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateComment = updateComment.join(' ');
                 console.log(updateComment);
                 event.target.closest('.container-comment').querySelector('.text').innerHTML = ` <span class="messTo">@${event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText}</span> ${updateComment}`;
-
             }
             else{
-
                 event.target.closest('.container-comment').querySelector('.text').textContent = event.target.closest('.container-comment').querySelector('textarea').value;   
-
             }
 
             event.target.closest('.container-comment').querySelector('.text').style.display = 'block';
@@ -638,6 +675,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 })
+
+
+
 
 
 
