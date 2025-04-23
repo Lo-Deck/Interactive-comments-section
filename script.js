@@ -370,7 +370,6 @@ fetchData().then( (data) => {
             const mess = document.querySelector('#myForm')[0].value.trim();
             console.log(document.querySelector('#myForm')[0]);
 
-            // if( document.querySelector('#myForm')[0].textLength !== 0 ){
             if(mess){
 
                 const containerCommentAndReply = document.createElement('div');
@@ -412,7 +411,6 @@ fetchData().then( (data) => {
          
                 containerCommentAndReply.insertAdjacentElement('afterbegin', section);
                 document.querySelector('.add-comment').insertAdjacentElement('beforebegin', containerCommentAndReply);
-
                 document.querySelector('#myForm')[0].value = '';
  
             }
@@ -500,17 +498,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if(document.querySelector('.reply-mess')){
 
-                document.querySelector('.reply-mess textarea').addEventListener('keydown', (event) => {
+                document.querySelector('.reply-mess textarea').addEventListener('keydown', (event) => {//avoid user delete username when reply
 
-                    console.log('lengthName', lengthName);
-                    console.log('event.target.selectionStart', event.target.selectionStart);
-                  
                     if (event.target.selectionStart < lengthName) {
                       console.log('hure');
                       event.preventDefault();
                       event.target.setSelectionRange(lengthName, lengthName); 
                     }
-
 
                     if(event.key === 'Backspace' && event.target.selectionStart <= lengthName){
                         console.log('back');
@@ -682,9 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
 // const saveUser = 'userKey'; 
-
 
 // window.addEventListener('beforeunload', () => {
 
@@ -700,7 +692,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //     saveComment();
 
 // });
-
 
 
 // window.addEventListener('load', () => {
