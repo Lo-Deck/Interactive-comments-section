@@ -368,7 +368,6 @@ fetchData().then( (data) => {
         document.querySelector('#myForm').addEventListener('submit', (event) => {
 
             const mess = document.querySelector('#myForm')[0].value.trim();
-            console.log(document.querySelector('#myForm')[0]);
 
             if(mess){
 
