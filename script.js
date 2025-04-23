@@ -409,6 +409,8 @@ fetchData().then( (data) => {
          
                 containerCommentAndReply.insertAdjacentElement('afterbegin', section);
                 document.querySelector('.add-comment').insertAdjacentElement('beforebegin', containerCommentAndReply);
+
+                document.querySelector('#myForm')[0].value = '';
  
             }
 
@@ -516,10 +518,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const sectionReply = document.createElement('section');
                     sectionReply.classList.add('container-comment');     
                     
-
                     // const userResponse = event.target.closest('.container-comment-and-reply').querySelector('.title-comment .user').innerText;
     
-
                     sectionReply.innerHTML = `
                         <h2 class="title-comment">
                             <picture class="container-image-avatar">
@@ -573,9 +573,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             document.querySelector('.delete-box .button-confirm').addEventListener('click', () => {
-                event.target.closest('.container-comment').remove();     
+
+                if(event.target.closest('.container-comment-and-reply').querySelector('.reply')){
+
+                    event.target.closest('.container-comment').remove(); 
+                }
+
+                else if(event.target.closest('.container-comment-and-reply')){
+                    event.target.closest('.container-comment-and-reply').remove();     
+                }
+                    
                 document.querySelector('.delete-box').style.display = 'none';
                 document.querySelector('.background').style.display = 'none';
+
             });
 
         }
